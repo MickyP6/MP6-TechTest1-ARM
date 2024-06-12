@@ -1,0 +1,9 @@
+docker-compose.override.yml
+env/*
+venv/*
+__pycache__
+.vscode
+.idea
+.vim
+.pytest_cache
+logs.*

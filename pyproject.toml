@@ -1,0 +1,20 @@
+[tool.black]
+line-length = 100
+skip-string-normalization = true
+exclude = '''
+/(
+    .git
+  | venv.*
+  | .venv.* 
+  | shared_libs.*
+  | docker_scripts.*
+  | .*__pycache__.*
+  | .*logs.*
+  | .*config.*
+)/
+'''
+
+[tool.isort]
+profile = "black"
+skip_glob = [".venv/*", "venv/*"]
+line_length = 100

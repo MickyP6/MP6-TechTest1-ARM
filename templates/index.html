@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>Google Sports Trends</title>
+   <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+ </head>
+ 
+ <body>
+       <div class="about">
+         <h1>Google Sports Trends</h1>
+         <p>Objectives: This task has been interpreted as a deployable application and focuses
+          on the backend as well as coding standards. The following was used for
+          a light-weight app; Flask for the backend, Selenium for scraping, D3 for visualization,
+          Docker for containerisation. Linters are Flake8, Black and isort. Pytest is used for tests. </p>
+                    
+          <p>Given that Google has never released an official API, I have decided to use selenium to scrape
+          the XHR requests to get access to Google backend API and reverse engineer it. This is described
+          more in the doc strings within get_google_data._make_request module. The reason for not
+          going with pyTrends package is because it has been unsupported for a year and receives 429 errors
+          from Google's API. The workaround here is very small and would be quicker to identify and fix should
+          Google change their endpoints.</p>
+
+          <p>Features to add:</p>
+            <ul>
+              <li>scheduled api calls to collect more granular data</li>
+              <li>anomaly detection to determine historic points of interest</li>
+              <li>integrate related search api to map against interest spikes</li>
+              <li>events predictions to determine the possible upcoming interest</li>
+              <li>add persistent database to backend</li>
+              <li>hover over tooltips for infographic</li>
+            </ul>
+          </p>
+          
+          <h3>Other Notes</h3>
+          <p>Could use Lambda's to scrape data from multiple endpoints, dump the responses into S3
+          and use Athena and Quicksight to query and visualise the data. Alternatively, Snowpipe to
+          read from the buckets and use DBT for stage to public schema. That way if Google changed
+          the structure of their API response this could be handled afterwards without dataloss. PowerBI
+          or Tableau can then be hooked up to Snowflake to generate much better visuals than I can make in D3.
+          </p>
+
+        <svg id="legend" height=200 width="300"></svg>
+       </div>
+
+       <div class="visualization">
+         <div id="lineChart"></div>
+       </div>
+
+       <script src="https://d3js.org/d3.v5.min.js"></script>
+       <script>
+           const lineChartUrl = "{{ url_for('grab_data') }}";
+       </script>
+       <script src="{{ url_for('static', filename='js/lineChart.js') }}"></script>
+       <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+       <script src="{{ url_for('static', filename='js/legend.js') }}"></script>
+ </body>
+</html>
