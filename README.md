@@ -13,7 +13,7 @@ It may take a little longer on the first pull.
 
 In a web browser open
 
-`localhost:5000`
+`localhost:8000`
 
 It will then open the page and look like this:
 ![image](https://github.com/MickyP6/AllResponseMedia-Test/assets/172441098/50a3b0fd-30a9-4542-bbf6-a6ba61cf16a3)
