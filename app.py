@@ -1,20 +1,23 @@
-from flask import Flask, Response, render_template
+from fastapi import FastAPI, Request, Response
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 import data_cleanser
 from get_google_data import GoogleApiRequest
 
-app = Flask(__name__)
+app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 
-@app.route('/')
-def index():
-    """
-    This routes the base url to index.html from static file.
-    """
-    return render_template('index.html')
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse(name="index.html", context={"request": request})
 
 
-@app.route("/grab_data")
+@app.get("/grab_data")
 def grab_data() -> Response:
     """
     This is the main entrypoint for d3 to request data.
@@ -22,8 +25,4 @@ def grab_data() -> Response:
     data = GoogleApiRequest().request_data()
     data = data_cleanser.jsonify_data(data)
 
-    return Response(data, mimetype='application/json')
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    return Response(data)
