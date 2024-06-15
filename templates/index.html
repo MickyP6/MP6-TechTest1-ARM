@@ -5,7 +5,7 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <title>Google Sports Trends</title>
-   <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+   <link href="{{ url_for('static', path='css/styles.css') }}" rel="stylesheet">
  </head>
  
  <body>
@@ -13,7 +13,7 @@
          <h1>Google Sports Trends</h1>
          <p>Objectives: This task has been interpreted as a deployable application and focuses
           on the backend as well as coding standards. The following was used for
-          a light-weight app; Flask for the backend, Selenium for scraping, D3 for visualization,
+          a light-weight app; FastApi for the backend, Selenium for scraping, D3 for visualization,
           Docker for containerisation. Linters are Flake8, Black and isort. Pytest is used for tests. </p>
                     
           <p>Given that Google has never released an official API, I have decided to use selenium to scrape
@@ -53,8 +53,8 @@
        <script>
            const lineChartUrl = "{{ url_for('grab_data') }}";
        </script>
-       <script src="{{ url_for('static', filename='js/lineChart.js') }}"></script>
-       <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-       <script src="{{ url_for('static', filename='js/legend.js') }}"></script>
+       <script src="{{ url_for('static', path='js/lineChart.js') }}"></script>
+       <script src="{{ url_for('static', path='js/index.js') }}"></script>
+       <script src="{{ url_for('static', path='js/legend.js') }}"></script>
  </body>
 </html>
