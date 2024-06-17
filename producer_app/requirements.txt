@@ -9,3 +9,4 @@ isort==5.13.2
 black==24.4.2
 pytest==8.2.2
 numpy==1.24.4
+confluent-kafka==2.4.0

@@ -1,12 +1,23 @@
+import settings.base as SETTINGS
+
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from confluent_kafka import Producer
+
 import data_cleanser
 from get_google_data import GoogleApiRequest
 
 app = FastAPI()
+
+producer_conf = {
+    'bootstrap.servers': SETTINGS.KAFKA_PRODUCER_SERVER,
+    'client.id': SETTINGS.KAFKA_CLIENT_APP_ID
+}
+
+producer = Producer(producer_conf)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -24,5 +35,8 @@ def grab_data() -> Response:
     """
     data = GoogleApiRequest().request_data()
     data = data_cleanser.jsonify_data(data)
+
+    producer.produce('google-data', value=data)
+    producer.flush()
 
     return Response(data)
