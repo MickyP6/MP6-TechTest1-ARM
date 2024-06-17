@@ -2,6 +2,6 @@ version: "3"
 
 services:
   get_data:
-    build: "."
+    build: "./producer_app"
     ports:
     - "8000:8000"

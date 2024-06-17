@@ -8,5 +8,6 @@ RUN python3 get-pip.py
 WORKDIR /work
 COPY . /work
 RUN pip install -r requirements.txt
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0"]
+# CMD ["uvicorn", "app:app", "--host", "0.0.0.0"]
+CMD ["sleep", "3000"]
 
